@@ -15,14 +15,15 @@ docker build -t dropbox .
 
 ## Volumes:
 
-#### `/Dropbox`
+#### `nobody/Dropbox`
 
-Dropbox sync folder. (i.e. /opt/downloads/dropbox or /media/Tower/dropbox)
+Dropbox sync folder, ensure the directory is owned by nobody:users. (i.e. /opt/downloads/dropbox or /media/Tower/dropbox)
 
 ## Docker run command:
 
 ```
-docker run -d --net=host -v /*your_dropbox_location*:/Dropbox \
+docker run -d --net=host -v /*your_dropbox_location*:/nobody/Dropbox \
+              -v /etc/localtime:/etc/localtime:ro
               --name=DropboxDaemon hurricane/docker-dropbox
 ```
 
