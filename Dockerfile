@@ -8,6 +8,7 @@ ENV DEBIAN_FRONTEND noninteractive
 # Set user nobody to uid and gid of unRAID
 RUN usermod -u 99 nobody
 RUN usermod -g 100 nobody
+RUN usermod -d /home nobody
 
 # Set locale
 ENV LANGUAGE en_US.UTF-8
@@ -19,12 +20,15 @@ RUN dpkg-reconfigure locales
 # Update Ubuntu
 RUN apt-get -q update
 RUN apt-mark hold initscripts udev plymouth mountall
-RUN apt-get -qy --force-yes dist-upgrade
+RUN apt-get -qy --force-yes dist-upgrade && apt-get autoremove && apt-get autoclean
 
 ADD https://www.dropbox.com/download?plat=lnx.x86_64 /dropbox.tgz
-RUN tar xfvz /dropbox.tgz && rm /dropbox.tgz && chown -R nobody:users /.dropbox-dist/ && mkdir /nobody && chown nobody:users /nobody
+RUN tar xfvz /dropbox.tgz && rm /dropbox.tgz && chown -R nobody:users /.dropbox-dist/ && chown nobody:users /home
 
-ADD startup.sh /startup.sh
+ADD start.sh /start.sh
+
+VOLUME /config
+VOLUME /dropbox
 
 USER nobody
-ENTRYPOINT ["/startup.sh"]
+ENTRYPOINT ["/start.sh"]
