@@ -28,7 +28,7 @@ RUN tar xfvz /dropbox.tgz && rm /dropbox.tgz && chown -R nobody:users /.dropbox-
 ADD start.sh /start.sh
 
 VOLUME /config
-VOLUME /dropbox
+VOLUME /home/Dropbox
 
 USER nobody
 ENTRYPOINT ["/start.sh"]
