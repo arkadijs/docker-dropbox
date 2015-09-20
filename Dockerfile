@@ -6,8 +6,9 @@ MAINTAINER Carlos Hernandez <carlos@techbyte.ca>
 ENV DEBIAN_FRONTEND noninteractive
 
 # Set user nobody to uid and gid of unRAID
-RUN usermod -u 99 nobody
-RUN usermod -g 100 nobody
+RUN groupadd -g 1000 arkadi
+RUN usermod -u 1000 nobody
+RUN usermod -g 1000 nobody
 RUN usermod -d /home nobody
 
 # Set locale

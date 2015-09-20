@@ -2,4 +2,5 @@
 
 export HOME=/home/
 [ ! -L /home/.dropbox ] && ln -s /config /home/.dropbox
-/.dropbox-dist/dropboxd
+#chown nobody /config
+exec /.dropbox-dist/dropboxd
