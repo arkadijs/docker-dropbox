@@ -23,7 +23,8 @@ RUN apt-get -q update
 RUN apt-mark hold initscripts udev plymouth mountall
 RUN apt-get -qy --force-yes dist-upgrade && apt-get autoremove && apt-get autoclean
 
-ADD https://www.dropbox.com/download?plat=lnx.x86_64 /dropbox.tgz
+#ADD https://www.dropbox.com/download?plat=lnx.x86_64 /dropbox.tgz
+ADD https://d1ilhw0800yew8.cloudfront.net/client/dropbox-lnx.x86_64-3.10.5.tar.gz /dropbox.tgz
 RUN tar xfvz /dropbox.tgz && rm /dropbox.tgz && chown -R nobody:users /.dropbox-dist/ && chown nobody:users /home
 
 ADD start.sh /start.sh
@@ -32,4 +33,4 @@ VOLUME /config
 VOLUME /home/Dropbox
 
 USER nobody
-ENTRYPOINT ["/start.sh"]
+CMD ["/start.sh"]

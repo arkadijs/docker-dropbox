@@ -15,7 +15,7 @@ docker build -t dropbox .
 
 ## Volumes:
 
-#### `/dropbox`
+#### `/home/Dropbox`
 
 Dropbox sync folder, ensure the directory is owned by nobody:users. (i.e. /mnt/user/dropbox or /media/Tower/dropbox)
 
@@ -26,10 +26,10 @@ Dropbox configuration folder, in this path, Dropbox will store it's configuratio
 ## Docker run command:
 
 ```
-docker run -d --net=host -v /*your_dropbox_location*:/dropbox \
-              -v /opt/appdata/dropbox:/config \
-              -e TZ=America/Edmonton \
-              --name=Dropbox hurricane/docker-dropbox
+docker run -d --net=host -v $HOME/Dropbox:/home/Dropbox \
+              -v $HOME/.dropbox:/config \
+              -e TZ=UTC \
+              --name=dropbox dropbox
 ```
 
 ## Get URL to link the container to your Dropbox account:
