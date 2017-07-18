@@ -20,11 +20,12 @@ RUN dpkg-reconfigure locales
 
 # Update Ubuntu
 RUN apt-get -q update
+RUN apt-get -qy install libglib2.0
 RUN apt-mark hold initscripts udev plymouth mountall
 RUN apt-get -qy --force-yes dist-upgrade && apt-get autoremove && apt-get autoclean
 
 #ADD https://www.dropbox.com/download?plat=lnx.x86_64 /dropbox.tgz
-ADD https://clientupdates.dropboxstatic.com/dbx-releng/client/dropbox-lnx.x86_64-23.4.19.tar.gz /dropbox.tgz
+ADD https://clientupdates.dropboxstatic.com/dbx-releng/client/dropbox-lnx.x86_64-30.4.22.tar.gz /dropbox.tgz
 RUN tar xfvz /dropbox.tgz && rm /dropbox.tgz && chown -R nobody:users /.dropbox-dist/ && chown nobody:users /home
 
 ADD start.sh /start.sh
